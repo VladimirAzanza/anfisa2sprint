@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 
 from .models import IceCream
@@ -19,5 +20,11 @@ def ice_cream_detail(request, pk):
 
 def ice_cream_list(request):
     template = 'ice_cream/list.html'
-    context = {}
+    ice_cream_list = IceCream.objects.select_related('category').filter(
+        Q(is_published=True) &
+        Q(category__is_published=True)
+    ).order_by('category')
+    context = {
+        'ice_cream_list': ice_cream_list,
+    }
     return render(request, template, context)
