@@ -8,7 +8,8 @@ def ice_cream_detail(request, pk):
     ice_cream = get_object_or_404(
         IceCream.objects.values(
             'title',
-            'description'
+            'description',
+            'category__title'
         ).filter(is_published=True),
         id=pk
     )

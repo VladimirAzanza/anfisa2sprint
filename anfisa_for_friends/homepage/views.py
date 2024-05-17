@@ -9,9 +9,12 @@ def index(request):
     ice_cream_list = IceCream.objects.values(
         'id',
         'title',
-        'description'
+        'description',
+        'category__title'
     ).filter(
-        Q(is_on_main=True) & Q(is_published=True)
+        Q(is_on_main=True) &
+        Q(is_published=True) &
+        Q(category__is_published=True)
     ).order_by('title')[:3]
     context = {
         'ice_cream_list': ice_cream_list,
