@@ -66,6 +66,11 @@ class IceCream(PublishedModel):
         max_length=256
     )
     description = models.TextField(verbose_name='Описание')
+    output_order = models.PositiveSmallIntegerField(
+        verbose_name='Порядок отображения',
+        default=100
+    )
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     wrapper = models.OneToOneField(
         Wrapper,
         on_delete=models.SET_NULL,
